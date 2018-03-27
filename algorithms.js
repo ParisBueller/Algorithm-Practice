@@ -74,3 +74,36 @@ function sumPrimes(num) {
     return res;
 }
 
+//Smallest Common Multiple
+function smallestCommons(arr) {
+  //Sort arr
+  arr.sort(function(a,b) {
+    return b - a;
+  });
+  //Create a new array to add all values greater to smaller from arr
+  var newArray = [];
+  //Create a descending for loop iterating through the numbers in arr
+  for(var i = arr[0]; i >=arr[1]; i--) {
+    //Push values to newArray
+    newArray.push(i);
+  }
+  //Global variables
+  var quot = 0;
+  var loop = 1;
+  var n;
+ //Create a do while loop 
+  do {
+    quot=newArray[0] * loop * newArray[1];
+    for(n=2; n < newArray.length; n++) {
+      //Check for a remainder
+      if(quot % newArray[n] !== 0) {
+        break;
+      }
+    }
+    
+   loop++;
+  }  while (n !== newArray.length);
+  
+  
+  return quot;
+}
