@@ -107,3 +107,25 @@ function smallestCommons(arr) {
   
   return quot;
 }
+
+//Finders Keepers
+function findElement(arr, func) {
+  //Filter through array 'arr' adding only true values of 'func' to var num
+  var num = arr.filter(func);
+  //Check if num has any true values
+  if(num.length > 1){
+  return num[0];
+  }
+  //Returns undefined if entire array was false
+  return undefined;
+} 
+
+//Drop it
+function dropElements(arr, func) {
+  // while our function returns false at zero index
+  while(!func(arr[0])) {
+    //shift until true
+    arr.shift();
+  }
+  return arr;
+}
