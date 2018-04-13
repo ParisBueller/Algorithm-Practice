@@ -129,3 +129,25 @@ function dropElements(arr, func) {
   }
   return arr;
 }
+
+//Flatten a nested array
+function steamrollArray(arr) {
+  // Empty array variable to push 
+  var newArray = [];
+  flatten(arr);
+  function flatten(arr) {
+    //Iterate through each instance in arr
+    arr.forEach(function(arr2) {
+      //Check if current arr is an array
+      //if it is not, push it to newArray
+      if(!Array.isArray(arr2)) {
+        newArray.push(arr2);
+      }
+      // else, run our flatten function
+      else {
+        flatten(arr2);
+      }
+    });
+  }
+  return newArray;
+}
