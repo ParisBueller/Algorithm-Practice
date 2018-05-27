@@ -151,3 +151,34 @@ function steamrollArray(arr) {
   }
   return newArray;
 }
+
+//Binary Agents - Return an English translated sentence of the passed binary string
+function binaryAgent(str) {
+  //seperate binary code for conversion
+  biString = str.split(" ");
+  //empty array to push converted binary
+  uniString = [];
+  //loop through our split binary code
+  for(i = 0; i < biString.length; i++) {
+    //convert to decimal with parseInt
+    uniString.push(String.fromCharCode(parseInt(biString[i],2)));
+  }
+  //rejoin and return our converted binary
+  return uniString.join('');
+}
+
+//Everything Be True - Check if the predicate(second argument) 
+//is truthy on all elements of a collection (first argument) 
+function truthCheck(collection, pre) {
+  //set counter variable
+  var counter = 0;
+  //check for each object
+  for(var c in collection) {
+    //check if it has the property and is true
+    if(collection[c].hasOwnProperty(pre) && Boolean(collection[c][pre])) {
+      counter++;
+    }
+  }
+  //check to see if it is truthy and return true or false
+  return counter == collection.length;
+}
