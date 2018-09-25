@@ -1,3 +1,92 @@
+//Make a person
+//Fill in the object constructor with methods that will
+//build a persons name using the passed paramaters
+var Person = function(firstAndLast) {
+  //create a variable that is a copy of the firstAndLast paramater
+  let fullName = firstAndLast;
+  //get the first Name by splitting the full name at the space " "
+  //and indexing the first name[0]
+  this.getFirstName = () => {
+    return fullName.split(" ")[0];
+  };
+  //get the last name by splitting the full name at the space " "
+  //and indexing the last name[1]
+  this.getLastName = () => {
+    return fullName.split(" ")[1];
+  };
+  //get the full name by returning fullName, which 
+  //we set to the firstAndLast paramater at the top^
+  this.getFullName = () => {
+    return fullName;
+  };
+  //set the first Name by setting fullName to the indexed
+  //name and concatenating the passed name paramater
+  this.setFirstName = (name) => {
+    fullName = name + " " + fullName.split(" ")[1];
+  };
+  //set the last Name by setting fullName to the indexed
+  //name and concatenating the passed name paramater
+  this.setLastName = (name) => {
+    fullName = fullName.split(" ")[0] + " " + name;
+  }
+  // set the full name by setting the fullName to the passed name paramater
+  this.setFullName = (name) => {
+    fullName = name;
+  }
+  return firstAndLast;
+};
+
+let bob = new Person('Bob Ross');
+bob.getFullName();
+
+//Arguments Optional:Create a function that sums two arguments together. 
+//If only one argument is provided, then return a function that expects
+//one argument and returns the sum.
+
+function addTogether() {
+  //create a function to check if the argument is a number
+  //if not, return undefined
+  let checkNum = (num) => {
+    if(typeof num !== 'number') {
+      return undefined;
+    } else {
+      return num;
+    }
+  };
+
+  //Check if we have two argument paramaters,
+  if(arguments.length > 1) {
+    let a = checkNum(arguments[0]);
+    let b = checkNum(arguments[1]);
+    //If the arguments passed return as undefined, return undefined.
+    //Otherwise, add them and return the sum.
+    if(a === undefined || b === undefined) {
+      return undefined;
+    } else {
+      return a + b;
+    }
+  } else {
+    //If only one argument paramater is passed, return a new function that expects two paramaters
+    let c = arguments[0];
+
+    if(checkNum(c)) {
+      return (arg2) => {
+        //Check for non-numbers again
+        if(c === undefined || checkNum(arg2) === undefined) {
+          return undefined;
+        } else {
+          // If numbers add them and return sum
+          return c + arg2;
+        }
+      };
+    }
+  }
+}
+
+addTogether(2,3);
+
+
+
 //Convert HTML Entities
 function convertHTML(str) {
   //chain replace method with different arguments
