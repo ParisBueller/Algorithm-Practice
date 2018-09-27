@@ -1,3 +1,39 @@
+//Map the Debris
+//Return a new array that transforms the elements' average altitude into their orbital periods (in seconds).
+
+function orbitalPeriod(arr) {
+  let GM = 398600.4418;
+  let earthRadius = 6367.4447;
+  //create an empty array to push our transformed object to
+  let debris = [];
+  let a = 2 * Math.PI;
+
+  //Create a function that gets the orbital period
+  //of the debris object passed in arr
+  const getOrbPer = (obj) => {
+    //c is earthRadius + the object average altitude cubed
+    let c = Math.pow(earthRadius + obj.avgAlt,3);
+    //b is the square root of c divided by earths GM(standard gravitational paramater)
+    let b = Math.sqrt(c / GM);
+    //orbPer is the calculated orbital period rounded to the nearest whole number
+    let orbPer = Math.round(a * b);
+    //delete our avgAlt object key 
+    delete obj.avgAlt;
+    //add our new object key orbital period and its value
+    obj.orbitalPeriod = orbPer;
+    return obj;
+  }
+  //loop through the elements in arr and push them to our empty array
+  for(let elem in arr) {
+    debris.push(getOrbPer(arr[elem]));
+  }
+  //return our new array
+  return debris;
+}
+
+orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
+
+
 //Make a person
 //Fill in the object constructor with methods that will
 //build a persons name using the passed paramaters
