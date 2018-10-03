@@ -1,3 +1,80 @@
+//Cash Register: Design a cash register drawer function that accepts arguments
+//purchase price(price),payment(cash), and cash-in-drawer(cid)
+
+//Create a 2d array of currency value objects
+let currencyValue = [
+  { name: 'ONE HUNDRED', val: 100.00},
+  { name: 'TWENTY', val: 20.00},
+  { name: 'TEN', val: 10.00},
+  { name: 'FIVE', val: 5.00},
+  { name: 'ONE', val: 1.00},
+  { name: 'QUARTER', val: 0.25},
+  { name: 'DIME', val: 0.10},
+  { name: 'NICKEL', val: 0.05},
+  { name: 'PENNY', val: 0.01}
+];
+
+function checkCashRegister(price, cash, cid) {
+  //Define our output and change variables
+  let output = { status: null, change:[] };
+  let change = cash - price ;
+
+  //Transform the cash-in-drawer(cid) into object  
+  const register = cid.reduce((acc, curr) => {
+    acc.total += curr[1];
+    acc[curr[0]] = curr[1];
+      return acc;
+  }, { total: 0 });
+
+  //If exact change..
+  if(register.total === change) {
+    output.status = 'CLOSED';
+    output.change = cid;
+    return output;
+  }
+
+  //if in sufficient funds..
+  if(register.total < change) {
+     output.status = 'INSUFFICIENT_FUNDS';
+     return output;
+  }
+
+  //Loop through our currencyValue array
+  const change_arr = currencyValue.reduce((acc, curr) => {
+    let value = 0;
+    //while there is still this type of currency in the drawer
+    //and while that currencyValue is greater than the change remaining
+    while(register[curr.name] > 0 && change >= curr.val) {
+      change -= curr.val;
+      register[curr.name] -= curr.val;
+      value += curr.val;
+
+      //Round change to nearest hundredth
+      change = Math.round(change * 100) / 100;
+    }
+    //add this currencyValue to the output if any was used
+    if(value > 0) {
+      acc.push([curr.name, value]);
+    }
+    //return the current change array
+    return acc;
+  },[]);
+  //if nothing in change array or leftover change, return 'INSUFFICIENT_FUNDS'
+  if(change_arr.length < 1 || change > 0) {
+    output.status = 'INSUFFICIENT_FUNDS';
+    return output;
+  }
+  //return change
+  output.status = 'OPEN';
+  output.change = change_arr;
+  return output;
+
+}
+
+
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+
+
 //Telephone Number Validator
 //Return true if the passed string looks like a valid US phone number
 function telephoneCheck(str) {
