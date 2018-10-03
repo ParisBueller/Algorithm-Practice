@@ -1,3 +1,19 @@
+//Telephone Number Validator
+//Return true if the passed string looks like a valid US phone number
+function telephoneCheck(str) {
+  //Create a regular expression to check our passed phone number
+            //(1\s?) allows for country code 1 if passed
+            //(\d{3}\)|\d{3}) checks for zip code with and without parenthesis
+            //[\s\-]? checks for spaces or dashes in the number
+            //$ marks the end of the string
+  let regex = /^(1\s?)?(\(\d{3}\)|\d{3})[\s\-]?\d{3}[\s\-]?\d{4}$/; 
+  //test the str with regest.test(str)
+  return regex.test(str);
+}
+
+telephoneCheck("555-555-5555");
+
+
 //Map the Debris
 //Return a new array that transforms the elements' average altitude into their orbital periods (in seconds).
 
